@@ -1,8 +1,9 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, Generated } from 'typeorm';
 
 @Entity('categories')
 class Category {
   @PrimaryGeneratedColumn('uuid')
+  @Generated('uuid')
   id: string;
 
   @Column()
