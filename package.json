@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "build": "tsc",
-    "dev:server": "ts-node-dev --inspect --transpileOnly --ignore-watch node_modules src/server.ts",
+    "dev:server": "ts-node-dev --inspect --ignore-watch node_modules src/server.ts",
     "start": "ts-node src/index.ts",
     "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js",
     "test": "cross-env NODE_ENV=test jest"
@@ -40,8 +40,8 @@
     "prettier": "^2.0.4",
     "supertest": "^4.0.2",
     "ts-jest": "^25.3.1",
-    "ts-node": "3.3.0",
-    "ts-node-dev": "^1.0.0-pre.44",
-    "typescript": "^3.8.3"
+    "ts-node": "^3.3.0",
+    "typescript": "^3.8.3",
+    "ts-node-dev": "^1.0.0-pre.61"
   }
 }
