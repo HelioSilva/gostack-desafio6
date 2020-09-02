@@ -24,11 +24,16 @@ class CreateTransactionService {
       throw new AppError('Type not defined', 400);
     }
 
-    let category_id = '';
+    //get Repository
     const categoryORM = getRepository(Category);
+    const transationORM = getRepository(Transaction);
+
+    let category_id = '';
+
     const buscaCategoria = await categoryORM.find({
       where: { title: category.toLowerCase() },
     });
+
     if (buscaCategoria.length === 0) {
       const newCategory = await categoryORM.create({
         title: category.toLowerCase(),
@@ -39,7 +44,6 @@ class CreateTransactionService {
       category_id = buscaCategoria[0].id;
     }
 
-    const transationORM = getRepository(Transaction);
     const transaction = transationORM.create({
       title,
       value,
@@ -52,6 +56,7 @@ class CreateTransactionService {
     } catch {
       new AppError('erro no cadastro', 400);
     }
+
     return transaction;
   }
 }
