@@ -20,15 +20,18 @@ class Transaction {
   @Column()
   type: 'income' | 'outcome';
 
-  @Column()
+  @Column('numeric', {
+    precision: 7,
+    scale: 2,
+  })
   value: number;
 
-  @Column()
+  @Column({ select: false })
   category_id: string;
 
-  @ManyToOne(() => Category)
+  @ManyToOne(() => Category, { eager: true })
   @JoinColumn({ name: 'category_id' })
-  categories: Category[];
+  category: Category;
 
   @Column('time with time zone')
   created_at: Date;
