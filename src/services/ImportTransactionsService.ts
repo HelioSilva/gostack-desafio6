@@ -34,14 +34,15 @@ class ImportTransactionsService {
     await new Promise(resolve => parseCSV.on('end', resolve));
 
     let responseService: Transaction[] = [];
-    const newTransaction = new CreateTransactionService();
 
-    await Promise.all(
-      transactionsCSV.map(async item => {
-        const resposta = await newTransaction.execute(item);
-        responseService.push(resposta);
-      }),
-    );
+    async function getTran(item: any) {
+      const newTransaction = new CreateTransactionService();
+      const resposta = await newTransaction.execute(item);
+      responseService.push(resposta);
+    }
+
+    const x = transactionsCSV.map(getTran);
+    await Promise.all(x);
     return responseService;
   }
 }

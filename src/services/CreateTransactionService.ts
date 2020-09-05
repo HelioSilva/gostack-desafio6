@@ -30,21 +30,20 @@ class CreateTransactionService {
 
     let category_id = '';
 
-    const buscaCategoria = await categoryORM.findOne({
+    const buscaCategoria = await categoryORM.find({
       where: { title: category },
     });
 
-    console.log(buscaCategoria);
-
-    if (!buscaCategoria) {
+    if (buscaCategoria.length == 0) {
       const newCategory = await categoryORM.create({
         title: category,
       });
       await categoryORM.save(newCategory);
+      await categoryORM.queryRunner?.commitTransaction();
 
       category_id = newCategory.id;
     } else {
-      category_id = buscaCategoria.id;
+      category_id = buscaCategoria[0].id;
     }
 
     const transaction = transationORM.create({
