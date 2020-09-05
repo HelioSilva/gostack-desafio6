@@ -7,7 +7,12 @@ import TransactionsRepository from '../repositories/TransactionsRepository';
 import CreateTransactionService from '../services/CreateTransactionService';
 import AppError from '../errors/AppError';
 import DeleteTransactionService from '../services/DeleteTransactionService';
-// import ImportTransactionsService from '../services/ImportTransactionsService';
+import ImportTransactionsService from '../services/ImportTransactionsService';
+
+import multer from 'multer';
+import uploadConfig from '../config/upload';
+
+const upload = multer(uploadConfig);
 
 const transactionsRouter = Router();
 
@@ -55,11 +60,20 @@ transactionsRouter.delete('/:id', async (request, response) => {
   const deleteRopository = new DeleteTransactionService();
   const valueID = request.params.id;
 
-  deleteRopository.execute(valueID);
+  await deleteRopository.execute(valueID);
+  response.status(200).json({ resposta: 'OK' });
 });
 
-transactionsRouter.post('/import', async (request, response) => {
-  // TODO
-});
+transactionsRouter.post(
+  '/import',
+  upload.single('file'),
+  async (request, response) => {
+    // TODO
+    const importService = new ImportTransactionsService();
+
+    const transactions = await importService.execute(request.file.path);
+    return response.json(transactions);
+  },
+);
 
 export default transactionsRouter;

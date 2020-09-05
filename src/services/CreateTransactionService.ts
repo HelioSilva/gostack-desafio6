@@ -1,5 +1,5 @@
 import AppError from '../errors/AppError';
-import { getRepository } from 'typeorm';
+import { getRepository, QueryRunner } from 'typeorm';
 import Transaction from '../models/Transaction';
 import Category from '../models/Category';
 
@@ -30,18 +30,21 @@ class CreateTransactionService {
 
     let category_id = '';
 
-    const buscaCategoria = await categoryORM.find({
+    const buscaCategoria = await categoryORM.findOne({
       where: { title: category },
     });
 
-    if (buscaCategoria.length === 0) {
+    console.log(buscaCategoria);
+
+    if (!buscaCategoria) {
       const newCategory = await categoryORM.create({
         title: category,
       });
       await categoryORM.save(newCategory);
+
       category_id = newCategory.id;
     } else {
-      category_id = buscaCategoria[0].id;
+      category_id = buscaCategoria.id;
     }
 
     const transaction = transationORM.create({
