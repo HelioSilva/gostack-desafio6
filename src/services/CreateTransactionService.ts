@@ -31,12 +31,12 @@ class CreateTransactionService {
     let category_id = '';
 
     const buscaCategoria = await categoryORM.find({
-      where: { title: category.toLowerCase() },
+      where: { title: category },
     });
 
     if (buscaCategoria.length === 0) {
       const newCategory = await categoryORM.create({
-        title: category.toLowerCase(),
+        title: category,
       });
       await categoryORM.save(newCategory);
       category_id = newCategory.id;

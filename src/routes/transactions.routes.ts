@@ -6,7 +6,7 @@ import Transaction from '../models/Transaction';
 import TransactionsRepository from '../repositories/TransactionsRepository';
 import CreateTransactionService from '../services/CreateTransactionService';
 import AppError from '../errors/AppError';
-// import DeleteTransactionService from '../services/DeleteTransactionService';
+import DeleteTransactionService from '../services/DeleteTransactionService';
 // import ImportTransactionsService from '../services/ImportTransactionsService';
 
 const transactionsRouter = Router();
@@ -14,7 +14,7 @@ const transactionsRouter = Router();
 transactionsRouter.get('/', async (request, response) => {
   // TODO
   const transactionORM = getRepository(Transaction);
-  const responseAllTransactions = await transactionORM.find();
+  const responseAllTransactions = await transactionORM.find({ cache: false });
 
   const balance = new TransactionsRepository();
   const respostaBalance = await balance.getBalance(responseAllTransactions);
@@ -52,6 +52,10 @@ transactionsRouter.post('/', async (request: Request, response: Response) => {
 
 transactionsRouter.delete('/:id', async (request, response) => {
   // TODO
+  const deleteRopository = new DeleteTransactionService();
+  const valueID = request.params.id;
+
+  deleteRopository.execute(valueID);
 });
 
 transactionsRouter.post('/import', async (request, response) => {

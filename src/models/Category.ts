@@ -1,4 +1,10 @@
-import { Entity, Column, PrimaryGeneratedColumn, Generated } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  Generated,
+  CreateDateColumn,
+} from 'typeorm';
 
 @Entity('categories')
 class Category {
@@ -9,10 +15,10 @@ class Category {
   @Column()
   title: string;
 
-  @Column()
+  @CreateDateColumn()
   created_at: Date;
 
-  @Column('time with time zone')
+  @CreateDateColumn()
   updated_at: Date;
 }
 

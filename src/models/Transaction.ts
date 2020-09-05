@@ -5,10 +5,11 @@ import {
   Generated,
   ManyToOne,
   JoinColumn,
+  CreateDateColumn,
 } from 'typeorm';
 import Category from './Category';
 
-@Entity('transaction')
+@Entity('transactions')
 class Transaction {
   @PrimaryGeneratedColumn('uuid')
   @Generated('uuid')
@@ -20,8 +21,8 @@ class Transaction {
   @Column()
   type: 'income' | 'outcome';
 
-  @Column('numeric', {
-    precision: 7,
+  @Column('decimal', {
+    precision: 10,
     scale: 2,
   })
   value: number;
@@ -33,10 +34,10 @@ class Transaction {
   @JoinColumn({ name: 'category_id' })
   category: Category;
 
-  @Column('time with time zone')
+  @CreateDateColumn()
   created_at: Date;
 
-  @Column('time with time zone')
+  @CreateDateColumn()
   updated_at: Date;
 }
 
