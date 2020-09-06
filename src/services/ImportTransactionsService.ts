@@ -36,9 +36,12 @@ class ImportTransactionsService {
     let responseService: Transaction[] = [];
 
     async function getTran(item: any) {
-      const newTransaction = new CreateTransactionService();
-      const resposta = await newTransaction.execute(item);
-      responseService.push(resposta);
+      return new Promise(async resolve => {
+        const newTransaction = new CreateTransactionService();
+        const resposta = await newTransaction.execute(item);
+        responseService.push(resposta);
+        resolve();
+      });
     }
 
     const x = transactionsCSV.map(getTran);

@@ -1,5 +1,5 @@
 import AppError from '../errors/AppError';
-import { getRepository, QueryRunner } from 'typeorm';
+import { getRepository } from 'typeorm';
 import Transaction from '../models/Transaction';
 import Category from '../models/Category';
 
@@ -24,7 +24,7 @@ class CreateTransactionService {
       throw new AppError('Type not defined', 400);
     }
 
-    //get Repository
+    //GET Repository
     const categoryORM = getRepository(Category);
     const transationORM = getRepository(Transaction);
 
@@ -39,7 +39,6 @@ class CreateTransactionService {
         title: category,
       });
       await categoryORM.save(newCategory);
-      await categoryORM.queryRunner?.commitTransaction();
 
       category_id = newCategory.id;
     } else {
