@@ -35,14 +35,11 @@ class ImportTransactionsService {
 
     let responseService: Transaction[] = [];
 
-    console.log(transactionsCSV);
-
     for (let index = 0; index < transactionsCSV.length; index++) {
       const element = transactionsCSV[index];
       const newTransaction = new CreateTransactionService();
       const resposta = await newTransaction.execute(element);
       responseService.push(resposta);
-      console.log(element.title);
     }
 
     return responseService;
