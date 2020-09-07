@@ -30,11 +30,11 @@ class CreateTransactionService {
 
     let category_id = '';
 
-    const buscaCategoria = await categoryORM.find({
+    const buscaCategoria = await categoryORM.findOne({
       where: { title: category },
     });
 
-    if (buscaCategoria.length == 0) {
+    if (!buscaCategoria) {
       const newCategory = await categoryORM.create({
         title: category,
       });
@@ -42,7 +42,7 @@ class CreateTransactionService {
 
       category_id = newCategory.id;
     } else {
-      category_id = buscaCategoria[0].id;
+      category_id = buscaCategoria.id;
     }
 
     const transaction = transationORM.create({

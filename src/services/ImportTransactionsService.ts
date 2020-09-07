@@ -35,17 +35,16 @@ class ImportTransactionsService {
 
     let responseService: Transaction[] = [];
 
-    async function getTran(item: any) {
-      return new Promise(async resolve => {
-        const newTransaction = new CreateTransactionService();
-        const resposta = await newTransaction.execute(item);
-        responseService.push(resposta);
-        resolve();
-      });
+    console.log(transactionsCSV);
+
+    for (let index = 0; index < transactionsCSV.length; index++) {
+      const element = transactionsCSV[index];
+      const newTransaction = new CreateTransactionService();
+      const resposta = await newTransaction.execute(element);
+      responseService.push(resposta);
+      console.log(element.title);
     }
 
-    const x = transactionsCSV.map(getTran);
-    await Promise.all(x);
     return responseService;
   }
 }
