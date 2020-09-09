@@ -12,7 +12,6 @@ import Category from './Category';
 @Entity('transactions')
 class Transaction {
   @PrimaryGeneratedColumn('uuid')
-  @Generated('uuid')
   id: string;
 
   @Column()
@@ -27,10 +26,10 @@ class Transaction {
   })
   value: number;
 
-  @Column({ select: false })
+  @Column()
   category_id: string;
 
-  @ManyToOne(() => Category, { eager: true })
+  @ManyToOne(() => Category)
   @JoinColumn({ name: 'category_id' })
   category: Category;
 

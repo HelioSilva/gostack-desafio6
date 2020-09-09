@@ -2,18 +2,14 @@ import {
   Entity,
   Column,
   PrimaryGeneratedColumn,
-  Generated,
   CreateDateColumn,
-  Unique,
 } from 'typeorm';
 
 @Entity('categories')
 class Category {
   @PrimaryGeneratedColumn('uuid')
-  @Generated('uuid')
   id: string;
 
-  @Unique('da', ['title'])
   @Column()
   title: string;
 
