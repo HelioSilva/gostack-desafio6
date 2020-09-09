@@ -14,21 +14,15 @@ describe('Transaction', () => {
   beforeAll(async () => {
     connection = await createConnection('test-connection');
 
-    console.log('drop');
     await connection.query('DROP TABLE IF EXISTS transactions');
-    console.log('drop');
     await connection.query('DROP TABLE IF EXISTS categories');
-    console.log('drop');
     await connection.query('DROP TABLE IF EXISTS migrations');
 
-    console.log('run migrations');
     await connection.runMigrations();
   });
 
   beforeEach(async () => {
-    console.log('delete1');
     await connection.query('DELETE FROM transactions');
-    console.log('delete2');
     await connection.query('DELETE FROM categories');
   });
 

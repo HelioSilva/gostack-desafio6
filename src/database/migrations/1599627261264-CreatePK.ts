@@ -1,6 +1,6 @@
 import { MigrationInterface, QueryRunner, TableForeignKey } from 'typeorm';
 
-export class CreateChaveEstrangeira1599588627310 implements MigrationInterface {
+export class CreatePK1599627261264 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createForeignKey(
       'transactions',
