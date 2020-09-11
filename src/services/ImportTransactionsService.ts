@@ -15,8 +15,9 @@ class ImportTransactionsService {
     const stream = fs.createReadStream(file);
 
     const parse = csvparse({
-      delimiter: ',',
-      fromLine: 2,
+      from_line: 2,
+      ltrim: true,
+      rtrim: true,
     });
 
     const transactionsCSV: createDTO[] = [];
